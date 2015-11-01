@@ -1,0 +1,14 @@
+{
+  "name": "ssviewer",
+  "version": "1.0.0",
+  "description": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jerome Russ",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
