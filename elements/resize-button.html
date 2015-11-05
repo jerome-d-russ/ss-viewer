@@ -1,0 +1,26 @@
+<dom-module id="resize-button">
+
+  <template>
+    <paper-icon-button icon="text-format" style$="height:{{btnHeight}}" on-click="changeFontSize"></paper-icon-button>
+<!--     First: <span>{{firstName}}</span><br>
+    Last: <span>{{lastName}}</span> -->
+  </template>
+
+  <script>
+    Polymer({
+      is: 'resize-button',
+      properties: {
+        btnHeight: String,
+        changeAmount: Number,
+        textSize: {
+          type: Number,
+          notify: true
+        }
+      },
+      changeFontSize: function(e){
+        this.textSize += this.changeAmount;
+      }
+    });
+  </script>
+
+</dom-module>

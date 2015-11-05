@@ -2,19 +2,63 @@
   <link rel="import" href="/elements.html">
 </head>
 <body class="fullbleed vertical layout">
-  <paper-drawer-panel class="flex">
-    <paper-header-panel drawer>
-      <paper-toolbar>
-        <div>Application</div>
-      </paper-toolbar>
-      <div> Drawer content... </div>
-    </paper-header-panel>
-    <paper-header-panel main>
-      <paper-toolbar>
-        <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-        <div>Title</div>
-      </paper-toolbar>
-      <div> Main content... </div>
-    </paper-header-panel>
-  </paper-drawer-panel>
+  <template is="dom-bind" id="app">
+
+   <iron-ajax auto
+        url="/books"
+        handle-as="json"
+        last-response="{{ajaxResponse}}"></iron-ajax>
+
+    <h1>Video Feed</h1>
+    <template is="dom-repeat" items="{{ajaxResponse}}">
+        <p>
+        {{item}}
+        </p>
+    </template>
+
+    <paper-drawer-panel class="flex" force-narrow>
+      <paper-header-panel drawer mode="scroll">
+        <paper-toolbar>
+          <div>Read</div>
+          <span class="flex"></span>
+          <paper-icon-button icon="clear" paper-drawer-toggle></paper-icon-button>
+        </paper-toolbar>
+        <div> Drawer content... </div>
+        <paper-menu>
+          <paper-submenu>
+            <paper-item class="menu-trigger">Topics</paper-item>
+            <paper-menu class="menu-content">
+              <paper-item>Topic 1</paper-item>
+              <paper-item>Topic 2</paper-item>
+              <paper-item>Topic 3</paper-item>
+            </paper-menu>
+          </paper-submenu>
+          <paper-submenu>
+            <paper-item class="menu-trigger">Faves</paper-item>
+            <paper-menu class="menu-content">
+              <paper-item>Fave 1</paper-item>
+              <paper-item>Fave 2</paper-item>
+            </paper-menu>
+          </paper-submenu>
+        </paper-menu>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar>
+          <span class="flex">
+            <paper-icon-button icon="av:library-books" paper-drawer-toggle></paper-icon-button>
+          </span>
+          <div>Title</div>
+          <span class="flex layout horizontal center">
+            <span class="flex"></span>
+            <resize-button btn-height="2em" change-amount=-1 text-size={{textsize}}></resize-button>
+            <resize-button btn-height="3em" change-amount=+1 text-size={{textsize}}></resize-button>
+          </span>
+        </paper-toolbar>
+        <div id="mainContent" style$=font-size:{{textsize}}em> Main content... </div>
+      </paper-header-panel>
+    </paper-drawer-panel>
+    <script>
+      document.getElementById("app").textsize = 2;
+    </script>
+  </template>
 </body>
