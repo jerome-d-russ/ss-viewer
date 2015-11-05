@@ -1,47 +1,162 @@
+<!doctype html>
+<html>
 <head>
   <link rel="import" href="/elements.html">
+  <style>
+    .dropdown-content {
+      background-color: white;
+      line-height: 20px;
+      border-radius: 3px;
+      box-shadow: 0px 2px 6px #ccc;
+    }  
+  </style>
 </head>
+
+<!-- https://u6HsSO7H58krEHqMydGDyNx0VwIYsQOeZpYfZhnx:X@bibles.org/v2/versions/eng-NASB/books.js?include_chapters=true -->
+<!-- https://bibles.org/v2/{{bible-edition}}/passages.js?q[]={{book}}+{{chapter}}%3A{{start}}-{{stop}} -->
+<!-- https://bibles.org/v2/eng-NASB/passages.js?q[]=Genesis+3%3A1-5 -->
+
 <body class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
 
-   <iron-ajax auto
-        url="/books"
-        handle-as="json"
-        last-response="{{ajaxResponse}}"></iron-ajax>
+<!--      params='{"edition":"{{edition}}", "book":"{{book}}", "chapter":"{{chapter}}", "start":"{{start}}", "end":"{{end}}"}' -->
 
-    <h1>Video Feed</h1>
-    <template is="dom-repeat" items="{{ajaxResponse}}">
-        <p>
-        {{item}}
-        </p>
-    </template>
+    <iron-ajax
+      auto
+      url="/passage"
+      params='{"edition":"eng-NASB", "book":"Genesis", "chapter":"1", "start":"1", "end":"5"}'
+      handle-as="json"
+      last-response="{{ajaxResponse}}"
+      debounce-duration="300">
+    </iron-ajax>
 
     <paper-drawer-panel class="flex" force-narrow>
-      <paper-header-panel drawer mode="scroll">
+
+      <paper-header-panel drawer mode="standard">
         <paper-toolbar>
           <div>Read</div>
           <span class="flex"></span>
           <paper-icon-button icon="clear" paper-drawer-toggle></paper-icon-button>
         </paper-toolbar>
-        <div> Drawer content... </div>
         <paper-menu>
           <paper-submenu>
-            <paper-item class="menu-trigger">Topics</paper-item>
+            <paper-item class="menu-trigger">OT</paper-item>
             <paper-menu class="menu-content">
-              <paper-item>Topic 1</paper-item>
-              <paper-item>Topic 2</paper-item>
-              <paper-item>Topic 3</paper-item>
+              <paper-submenu>
+                <paper-item class="menu-trigger">Genesis</paper-item>
+                <paper-menu class="menu-content">
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">1</paper-item>
+                    <paper-menu class="menu-content">
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                    </paper-menu>
+                  </paper-submenu>
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">2</paper-item>
+                    <paper-menu class="menu-content">
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                    </paper-menu>
+                  </paper-submenu>
+                </paper-menu>
+              </paper-submenu>
+              <paper-submenu>
+                <paper-item class="menu-trigger">Exodus</paper-item>
+                <paper-menu class="menu-content">
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">1</paper-item>
+                    <paper-menu class="menu-content">
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                    </paper-menu>
+                  </paper-submenu>
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">2</paper-item>
+                    <paper-menu class="menu-content">
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                      <paper-dropdown-menu style="width:40%">
+                        <paper-menu class="dropdown-content" selected="0">
+                          <paper-item>1</paper-item>
+                          <paper-item>2</paper-item>
+                          <paper-item>3</paper-item>
+                          <paper-item>4</paper-item>
+                        </paper-menu>
+                      </paper-dropdown-menu>
+                    </paper-menu>
+                  </paper-submenu>
+                </paper-menu>
+              </paper-submenu>
             </paper-menu>
           </paper-submenu>
           <paper-submenu>
-            <paper-item class="menu-trigger">Faves</paper-item>
+            <paper-item class="menu-trigger">NT</paper-item>
             <paper-menu class="menu-content">
-              <paper-item>Fave 1</paper-item>
-              <paper-item>Fave 2</paper-item>
+              <paper-submenu>
+                <paper-item class="menu-trigger">Matthew</paper-item>
+                <paper-menu class="menu-content">
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">1</paper-item>
+                    <paper-menu class="menu-content">
+                      <paper-item>hi</paper-item>
+                    </paper-menu>
+                  </paper-submenu>
+                </paper-menu>
+              </paper-submenu>
             </paper-menu>
           </paper-submenu>
         </paper-menu>
       </paper-header-panel>
+
       <paper-header-panel main>
         <paper-toolbar>
           <span class="flex">
@@ -54,11 +169,13 @@
             <resize-button btn-height="3em" change-amount=+1 text-size={{textsize}}></resize-button>
           </span>
         </paper-toolbar>
-        <div id="mainContent" style$=font-size:{{textsize}}em> Main content... </div>
+        <div id="mainContent" style$=font-size:{{textsize}}em>This is the main content!</div>
       </paper-header-panel>
+
     </paper-drawer-panel>
     <script>
       document.getElementById("app").textsize = 2;
     </script>
   </template>
 </body>
+</html>
