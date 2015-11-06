@@ -32,6 +32,7 @@
     "paper-listbox": "PolymerElements/paper-listbox#~1.0.0",
     "paper-material": "PolymerElements/paper-material#~1.0.3",
     "webcomponentsjs": "~0.7.15",
-    "iron-dropdown": "PolymerElements/iron-dropdown#~1.0.6"
+    "iron-dropdown": "PolymerElements/iron-dropdown#~1.0.6",
+    "paper-input": "PolymerElements/paper-input#~1.0.18"
   }
 }

@@ -1,10 +1,12 @@
 var express = require('express');
 var app = express();
 var http = require('https');
+var bookMenu = require('./bookMenu');
 
 app.use(express.static(__dirname));
 
 app.get('/passage', function (req, res) {
+  console.log("Recieved /passage");
 
   if(!req.query.edition || 
      !req.query.book || 
@@ -26,19 +28,25 @@ app.get('/passage', function (req, res) {
 
   //https://bibles.org/v2/{{edition}}/passages.js?q[]={{book}}+{{chapter}}%3A{{start}}-{{stop}}
   http.get(url, function(res2) {
-    console.log("Got response: " + res2.statusCode);
+    console.log("Sent Passage to Bibles.org: " + res2.statusCode);
     
     var body = '';
     res2.on('data', function(chunk) {
       body += chunk;
     });
     res2.on('end', function() {
-      var books = JSON.parse(body);
-      res.json(books);
+      var passage = JSON.parse(body).response.search.result.passages[0];
+      console.log("Passage Sent");
+      res.json(passage);
     });
   }).on('error', function(e) {
     console.log("Got error: " + e.message);
   });
+});
+
+app.get('/books', function(req, res){
+  console.log("sending /books");
+  res.json(bookMenu);
 });
 
 app.use(function(req, res, next){

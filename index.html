@@ -24,9 +24,18 @@
     <iron-ajax
       auto
       url="/passage"
-      params='{"edition":"eng-NASB", "book":"Genesis", "chapter":"1", "start":"1", "end":"5"}'
+      params='{"edition":"eng-NASB", "book":"Genesis", "chapter":"2", "start":"2", "end":"5"}'
       handle-as="json"
       last-response="{{ajaxResponse}}"
+      on-response="handleResponse"
+      debounce-duration="300">
+    </iron-ajax>
+
+    <iron-ajax
+      auto
+      url="/books"
+      handle-as="json"
+      last-response="{{bookMenu}}"
       debounce-duration="300">
     </iron-ajax>
 
@@ -38,6 +47,32 @@
           <span class="flex"></span>
           <paper-icon-button icon="clear" paper-drawer-toggle></paper-icon-button>
         </paper-toolbar>
+
+        <paper-menu>
+          <template is="dom-repeat" items="[[bookMenu]]" as="section">
+            <paper-submenu>
+              <paper-item class="menu-trigger">[[section.title]]</paper-item>
+              <paper-menu class="menu-content">
+                <template is="dom-repeat" items="[[section.books]]" as="book">
+                  <paper-submenu>
+                    <paper-item class="menu-trigger">[[book.title]]</paper-item>
+                    <paper-menu class="menu-content">
+                      
+                      <paper-input label="Chapter" type="number"></paper-input>
+                      <paper-input label="Start" type="number"></paper-input>
+                      <paper-input label="Finish" type="number"></paper-input>
+
+                    </paper-menu>
+                  </paper-submenu>
+                </template>
+              </paper-menu>
+            </paper-submenu>
+          </template>
+        </paper-menu>
+
+<hr/>
+
+
         <paper-menu>
           <paper-submenu>
             <paper-item class="menu-trigger">OT</paper-item>
@@ -48,7 +83,7 @@
                   <paper-submenu>
                     <paper-item class="menu-trigger">1</paper-item>
                     <paper-menu class="menu-content">
-                      <paper-dropdown-menu style="width:40%">
+                      <paper-dropdown-menu style="width:40%" label="Start">
                         <paper-menu class="dropdown-content" selected="0">
                           <paper-item>1</paper-item>
                           <paper-item>2</paper-item>
@@ -56,7 +91,7 @@
                           <paper-item>4</paper-item>
                         </paper-menu>
                       </paper-dropdown-menu>
-                      <paper-dropdown-menu style="width:40%">
+                      <paper-dropdown-menu style="width:40%" label="End">
                         <paper-menu class="dropdown-content" selected="0">
                           <paper-item>1</paper-item>
                           <paper-item>2</paper-item>
@@ -162,19 +197,23 @@
           <span class="flex">
             <paper-icon-button icon="av:library-books" paper-drawer-toggle></paper-icon-button>
           </span>
-          <div>Title</div>
+          <div>{{ajaxResponse.display}}</div>
           <span class="flex layout horizontal center">
             <span class="flex"></span>
             <resize-button btn-height="2em" change-amount=-1 text-size={{textsize}}></resize-button>
             <resize-button btn-height="3em" change-amount=+1 text-size={{textsize}}></resize-button>
           </span>
         </paper-toolbar>
-        <div id="mainContent" style$=font-size:{{textsize}}em>This is the main content!</div>
+        <div id="mainContent" style$=font-size:{{textsize}}em></div>
       </paper-header-panel>
 
     </paper-drawer-panel>
     <script>
-      document.getElementById("app").textsize = 2;
+      var app = document.getElementById("app");
+      app.textsize = 2;
+      app.handleResponse = function(){
+        document.getElementById("mainContent").innerHTML = app.ajaxResponse.text;
+      }
     </script>
   </template>
 </body>
