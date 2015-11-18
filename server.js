@@ -10,19 +10,18 @@ app.get('/passage', function (req, res) {
 
   if(!req.query.edition || 
      !req.query.book || 
-     !req.query.chapter || 
+     !req.query.chapter) {
+/*     !req.query.chapter || 
      !req.query.start || 
-     !req.query.end) {
+     !req.query.end) {*/
     res.statusCode = 400;
-    return res.send('Error 400: Need Bible Edition, Book, Chapter, Start, and End.');
+    return res.send('Error 400: Need Bible Edition, Book, Chapter.'); //, Start, and End.');
   } 
 
-  var url = "https://u6HsSO7H58krEHqMydGDyNx0VwIYsQOeZpYfZhnx:X@bibles.org/v2/"
-             + req.query.edition + "/passages.js?q[]=" 
-             + req.query.book + "+" 
-             + req.query.chapter + "%3A" 
-             + req.query.start + "-" 
-             + req.query.end;
+  var url = "https://u6HsSO7H58krEHqMydGDyNx0VwIYsQOeZpYfZhnx:X@bibles.org/v2/chapters/"
+             + req.query.edition + ":" 
+             + req.query.book + "."
+             + req.query.chapter + ".js"
 
   console.log(url);
 
@@ -35,7 +34,7 @@ app.get('/passage', function (req, res) {
       body += chunk;
     });
     res2.on('end', function() {
-      var passage = JSON.parse(body).response.search.result.passages[0];
+      var passage = JSON.parse(body).response.chapters[0];
       console.log("Passage Sent");
       res.json(passage);
     });

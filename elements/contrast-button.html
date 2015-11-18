@@ -1,0 +1,44 @@
+<dom-module id="contrast-button">
+
+  <template>
+    <paper-icon-button icon="device:brightness-medium" style$="height:{{btnHeight}}" on-click="changeContrast"></paper-icon-button>
+<!--     First: <span>{{firstName}}</span><br>
+    Last: <span>{{lastName}}</span> -->
+  </template>
+
+  <script>
+    Polymer({
+      is: 'contrast-button',
+      properties: {
+        btnHeight: String,
+        contrastStyle: {
+          type: String,
+          notify: true
+        }
+      },
+      changeContrast: function(e){
+        main = document.getElementById("bodyId");
+        if(this.contrastStyle == 'light'){
+          main.style.backgroundColor = 'black';
+          main.style.color = 'white';
+          this.contrastStyle = 'dark';
+        } else {
+          main.style.backgroundColor = 'white';
+          main.style.color = 'black';
+          this.contrastStyle = 'light';
+        }
+      },
+      ready: function(){
+        main = document.getElementById("bodyId");
+        if(this.contrastStyle == 'light'){
+          main.style.backgroundColor = 'white';
+          main.style.color = 'black';
+        } else {
+          main.style.backgroundColor = 'black';
+          main.style.color = 'white';
+        }        
+      }
+    });
+  </script>
+
+</dom-module>

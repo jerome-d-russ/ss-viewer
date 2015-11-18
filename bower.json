@@ -33,6 +33,7 @@
     "paper-material": "PolymerElements/paper-material#~1.0.3",
     "webcomponentsjs": "~0.7.15",
     "iron-dropdown": "PolymerElements/iron-dropdown#~1.0.6",
-    "paper-input": "PolymerElements/paper-input#~1.0.18"
+    "paper-input": "PolymerElements/paper-input#~1.0.18",
+    "iron-localstorage": "PolymerElements/iron-localstorage#~1.0.4"
   }
 }
