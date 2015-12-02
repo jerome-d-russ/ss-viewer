@@ -36,5 +36,8 @@
     "paper-input": "PolymerElements/paper-input#~1.0.18",
     "iron-localstorage": "PolymerElements/iron-localstorage#~1.0.4",
     "paper-spinner": "PolymerElements/paper-spinner#~1.0.4"
+  },
+  "resolutions": {
+    "polymer": "^1.2.1"
   }
 }

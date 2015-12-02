@@ -6895,3 +6895,12 @@ for(var i=0;i<books.response.books.length;i++){
 }
 
 fs.writeFileSync('./books.json',JSON.stringify(bookMenu));
+
+fs.writeFileSync('./books.html','');
+bookMenu = "";
+for(var i=0;i<books.response.books.length;i++){
+  var book = books.response.books[i];
+  if(book.testament == 'OT' || book.testament == 'NT'){
+    fs.appendFileSync('./books.html','<paper-item>' + book.name + '</paper-item>\n');
+  }
+}
