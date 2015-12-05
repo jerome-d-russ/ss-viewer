@@ -36,25 +36,26 @@
       },
       bookChanged: function(e){
         console.log('bookChanged()');
-        this.selectedBook = document.getElementById("bookSelect").value;
-        console.log(this.selectedBook);
-        localStorage.setItem('ss-viewer-book', JSON.stringify(document.getElementById("bookSelect").value));
+        this.setBook(document.getElementById("bookSelect").value);
         this.selectedChapter = '1';
         document.getElementById("chapterSelect").value = '1';
+        this.chapterChanged();
+      },
+      setBook: function(bk){
+        this.selectedBook = bk;
+        localStorage.setItem('ss-viewer-book', JSON.stringify(bk));
+        document.getElementById("bookSelect").value = bk;
         this.chapters = new Array();
         this.chapters = Object.keys(this.books[this.selectedBook].chapters);
-        this.chapterChanged();
+        var req = {"type":"Book", "book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
+        socket.emit('set console', JSON.stringify(req));
       },
       chapterChanged: function(e){
         console.log('chapterChanged()');
-        this.selectedChapter = document.getElementById("chapterSelect").value;
-        localStorage.setItem('ss-viewer-chapter', JSON.stringify(document.getElementById("chapterSelect").value));
-        var numberOfVerses = this.books[this.selectedBook].chapters[this.selectedChapter].length;
+        this.setChapter(document.getElementById("chapterSelect").value);
         this.selectedVerse = '1';
         document.getElementById("verseSelect").value = '1';
         this.selectedVerse = document.getElementById("verseSelect").value;
-        this.verses = new Array();
-        this.verses = this.getVerses(numberOfVerses);
         r = {};
         r.edition = "eng-NASB";
         r.book = this.books[this.selectedBook].abbreviation;
@@ -64,17 +65,30 @@
         document.getElementById("ajax").generateRequest();
         this.verseChanged();
       },
+      setChapter: function(ch){
+        this.selectedChapter = ch;
+        localStorage.setItem('ss-viewer-chapter', JSON.stringify(ch));
+        document.getElementById("chapterSelect").value = ch;
+        this.verses = new Array();
+        var numberOfVerses = this.books[this.selectedBook].chapters[this.selectedChapter].length;
+        this.verses = this.getVerses(numberOfVerses);
+        var req = {"type":"Chapter", "book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
+        socket.emit('set console', JSON.stringify(req));
+      },
       verseChanged: function(e){
         console.log('verseChanged()');
-        this.selectedVerse = document.getElementById("verseSelect").value;
-        localStorage.setItem('ss-viewer-verse', JSON.stringify(document.getElementById("verseSelect").value));
+        this.setVerse(document.getElementById("verseSelect").value);
         var b = this.books[this.selectedBook].abbreviation;
         var ele = b + "." + this.selectedChapter + "." + this.selectedVerse;
         docEle = document.getElementById(ele);
         if(docEle){
           docEle.scrollIntoView(true);
         }
-        var req = {"book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
+      },
+      setVerse: function(v){
+        this.selectedVerse = v;
+        localStorage.setItem('ss-viewer-verse', JSON.stringify(v));
+        var req = {"type":"Verse", "book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
         socket.emit('set console', JSON.stringify(req));
       },
       getVerses: function(length){

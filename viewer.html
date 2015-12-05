@@ -4040,14 +4040,12 @@
       socket.on('change view', function(msg){
         console.log("Received: " + msg );
         var selected = JSON.parse(msg);
-        localStorage.setItem('ss-viewer-book', JSON.stringify(selected.book));
-        localStorage.setItem('ss-viewer-chapter', JSON.stringify(selected.chapter));
-        localStorage.setItem('ss-viewer-verse', JSON.stringify(selected.verse));
+        var bSel = document.getElementById("bibleSel");
         document.getElementById("verseSelect").value = selected.verse;
         if(document.getElementById("bookSelect").value != selected.book
           || document.getElementById("chapterSelect").value != selected.chapter){
-          document.getElementById("bookSelect").value = selected.book;
-          document.getElementById("chapterSelect").value = selected.chapter;
+          bSel.setBook(selected.book);
+          bSel.setChapter(selected.chapter);
           r = {};
           r.edition = "eng-NASB";
           r.book = books[selected.book].abbreviation;
@@ -4055,7 +4053,7 @@
           document.getElementById("ajax").params = r;
           document.getElementById("ajax").generateRequest();
         }else{
-          document.getElementById("bibleSel").verseChanged();
+          bSel.verseChanged();
         }
       });
       app.handleResponse = function(){
