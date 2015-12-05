@@ -10,6 +10,7 @@
       box-shadow: 0px 2px 6px #ccc;
     }  
   </style>
+  <script src="/socket.io.js"></script>
 </head>
 
 <body class="fullbleed vertical layout">
@@ -18,8 +19,8 @@
     <div class="flex layout vertical"></div>
     <div class="horizontal around-justified layout">
       <div>
-        <paper-dropdown-menu label="Book">
-          <paper-menu class="dropdown-content">
+        <paper-dropdown-menu id='book' label="Book">
+          <paper-menu class="dropdown-content" selected="0">
             <paper-item>Genesis</paper-item>
             <paper-item>Exodus</paper-item>
             <paper-item>Leviticus</paper-item>
@@ -90,16 +91,35 @@
         </paper-dropdown-menu>
       </div>
       <div>
-        <paper-input label="Chapter" type="number" min="0" max="150">
+        <paper-input id='chapter' label="Chapter" type="number" min="1" max="150" value="1">
         </paper-input>
       </div>
       <div>
-        <paper-input label="Verse" type="number" min=0 max="176">
+        <paper-input id='verse' label="Verse" type="number" min="1" max="176" value="1">
         </paper-input>
       </div>
     </div>
     <div class="flex"></div>
-
+    <div class="horizontal layout around-justified">
+        <button onclick="submitChange()">Submit</button>
+    </div>
+    <div class="flex"></div>
   </template>
+  <script>
+  var socket = io.connect('http://localhost:3000'); //io();
+  alert('add setBook, setChapter, setVerse functions to bible-selector!')
+  function submitChange(){
+    var book = document.getElementById("book").value;
+    var chapter = document.getElementById("chapter").value;
+    var verse = document.getElementById("verse").value;
+    var req = {"book":book, "chapter":chapter,"verse":verse};
+    console.log("sent!\n" + JSON.stringify(req));
+    socket.emit('set viewer', JSON.stringify(req));
+    socket.on('change console', function(msg){
+      console.log('change console revieved: ' + msg)
+    });
+    return false;
+  };
+</script>
 </body>
 </html>

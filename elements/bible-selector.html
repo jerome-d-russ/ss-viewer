@@ -74,6 +74,8 @@
         if(docEle){
           docEle.scrollIntoView(true);
         }
+        var req = {"book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
+        socket.emit('set console', JSON.stringify(req));
       },
       getVerses: function(length){
         var arrayOfVerses = [];
@@ -83,6 +85,7 @@
         return arrayOfVerses;
       },
       ready: function() {
+        console.log(this.selectedBook);
         this.books = {
           "Genesis": {
             "order": "1",

@@ -1,7 +1,21 @@
 var express = require('express');
 var app = express();
-var http = require('https');
+var http = require('http').Server(app);
+var https = require('https');
+var io = require('socket.io')(http);
 var bookMenu = require('./bookMenu');
+
+io.on('connection', function(socket){
+  socket.on('set viewer', function(msg){
+    console.log('set viewer received: ' + msg)
+    io.emit('change view', msg);
+  });
+  socket.on('set console', function(msg){
+    console.log('change console received: ' + msg)
+    io.emit('change console', msg);
+  });
+  console.log('a user connected');
+});
 
 app.use(express.static(__dirname));
 
@@ -11,9 +25,6 @@ app.get('/passage', function (req, res) {
   if(!req.query.edition || 
      !req.query.book || 
      !req.query.chapter) {
-/*     !req.query.chapter || 
-     !req.query.start || 
-     !req.query.end) {*/
     res.statusCode = 400;
     return res.send('Error 400: Need Bible Edition, Book, Chapter.'); //, Start, and End.');
   } 
@@ -26,7 +37,7 @@ app.get('/passage', function (req, res) {
   console.log(url);
 
   //https://bibles.org/v2/{{edition}}/passages.js?q[]={{book}}+{{chapter}}%3A{{start}}-{{stop}}
-  http.get(url, function(res2) {
+  https.get(url, function(res2) {
     console.log("Sent Passage to Bibles.org: " + res2.statusCode);
     
     var body = '';
@@ -52,4 +63,4 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-app.listen(process.env.PORT || 3000);
+http.listen(3000);
