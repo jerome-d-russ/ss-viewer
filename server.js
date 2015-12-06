@@ -17,7 +17,11 @@ io.on('connection', function(socket){
   console.log('a user connected');
 });
 
-app.use(express.static(__dirname));
+var options = {
+  index: "viewer.html"
+};
+
+app.use(express.static(__dirname, options));
 
 app.get('/passage', function (req, res) {
   console.log("Recieved /passage");
