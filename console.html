@@ -106,8 +106,7 @@
     <div class="flex"></div>
   </template>
   <script>
-  var socket = io.connect('http://localhost:3000'); //io();
-  alert('add setBook, setChapter, setVerse functions to bible-selector!')
+  var socket = io();
   function submitChange(){
     var book = document.getElementById("book").value;
     var chapter = document.getElementById("chapter").value;

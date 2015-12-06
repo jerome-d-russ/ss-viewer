@@ -63,4 +63,7 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-http.listen(3000);
+var port = process.env.port || 3000;
+var server = http.listen(port, function () {
+  console.log("listening on port... " + port);
+});
