@@ -60,7 +60,7 @@ app.get('/books', function(req, res){
 });
 
 app.use(function(req, res, next){
-  res.redirect('/');
+  res.redirect('/viewer.html');
 });
 
 var port = process.env.port || 3000;
