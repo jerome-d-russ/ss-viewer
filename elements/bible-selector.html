@@ -1,17 +1,17 @@
 <dom-module id="bible-selector">
 
   <template>
-    <select id="bookSelect" on-change="bookChanged">
+    <select id="bookSelect" on-change="bookChanged" style="font-size:2em">
       <template is="dom-repeat" items="{{bookNames}}" as="bk">
         <option value="{{bk}}" selected$={{checkBookSelection(bk)}}>{{bk}}</option>
       </template>
     </select>
-    <select id="chapterSelect" on-change="chapterChanged">
+    <select id="chapterSelect" on-change="chapterChanged" style="font-size:2em">
       <template is="dom-repeat" items="{{chapters}}" as="ch">
         <option value="{{ch}}" selected$={{checkChapterSelection(ch)}}>{{ch}}</option>
       </template>
     </select>
-    <select id="verseSelect" on-change="verseChanged">
+    <select id="verseSelect" on-change="verseChanged" style="font-size:2em">
       <template is="dom-repeat" items="{{verses}}" as="v">
         <option value="{{v}}" selected$={{checkVerseSelection(v)}}>{{v}}</option>
       </template>
