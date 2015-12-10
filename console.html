@@ -16,7 +16,6 @@
 <body class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
 
-    <div class="flex layout vertical"></div>
     <div class="horizontal around-justified layout">
       <div>
         <paper-dropdown-menu id='book' label="Book">
@@ -98,10 +97,9 @@
         <paper-input id='verse' label="Verse" type="number" min="1" max="176" value="1">
         </paper-input>
       </div>
-    </div>
-    <div class="flex"></div>
-    <div class="horizontal layout around-justified">
-        <button onclick="submitChange()">Submit</button>
+      <div class="vertical layout around-justified">
+          <button onclick="submitChange()">Submit</button>
+      </div>
     </div>
     <div class="flex"></div>
   </template>
