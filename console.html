@@ -12,111 +12,17 @@
   </style>
   <script src="/socket.io.js"></script>
 </head>
-
 <body class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
-
-    <div class="horizontal around-justified layout">
-      <div>
-        <paper-dropdown-menu id='book' label="Book">
-          <paper-menu class="dropdown-content" selected="0">
-            <paper-item>Genesis</paper-item>
-            <paper-item>Exodus</paper-item>
-            <paper-item>Leviticus</paper-item>
-            <paper-item>Numbers</paper-item>
-            <paper-item>Deuteronomy</paper-item>
-            <paper-item>Joshua</paper-item>
-            <paper-item>Judges</paper-item>
-            <paper-item>Ruth</paper-item>
-            <paper-item>1 Samuel</paper-item>
-            <paper-item>2 Samuel</paper-item>
-            <paper-item>1 Kings</paper-item>
-            <paper-item>2 Kings</paper-item>
-            <paper-item>1 Chronicles</paper-item>
-            <paper-item>2 Chronicles</paper-item>
-            <paper-item>Ezra</paper-item>
-            <paper-item>Nehemiah</paper-item>
-            <paper-item>Esther</paper-item>
-            <paper-item>Job</paper-item>
-            <paper-item>Psalm</paper-item>
-            <paper-item>Proverbs</paper-item>
-            <paper-item>Ecclesiastes</paper-item>
-            <paper-item>Song of Solomon</paper-item>
-            <paper-item>Isaiah</paper-item>
-            <paper-item>Jeremiah</paper-item>
-            <paper-item>Lamentations</paper-item>
-            <paper-item>Ezekiel</paper-item>
-            <paper-item>Daniel</paper-item>
-            <paper-item>Hosea</paper-item>
-            <paper-item>Joel</paper-item>
-            <paper-item>Amos</paper-item>
-            <paper-item>Obadiah</paper-item>
-            <paper-item>Jonah</paper-item>
-            <paper-item>Micah</paper-item>
-            <paper-item>Nahum</paper-item>
-            <paper-item>Habakkuk</paper-item>
-            <paper-item>Zephaniah</paper-item>
-            <paper-item>Haggai</paper-item>
-            <paper-item>Zechariah</paper-item>
-            <paper-item>Malachi</paper-item>
-            <paper-item>Matthew</paper-item>
-            <paper-item>Mark</paper-item>
-            <paper-item>Luke</paper-item>
-            <paper-item>John</paper-item>
-            <paper-item>Acts</paper-item>
-            <paper-item>Romans</paper-item>
-            <paper-item>1 Corinthians</paper-item>
-            <paper-item>2 Corinthians</paper-item>
-            <paper-item>Galatians</paper-item>
-            <paper-item>Ephesians</paper-item>
-            <paper-item>Philippians</paper-item>
-            <paper-item>Colossians</paper-item>
-            <paper-item>1 Thessalonians</paper-item>
-            <paper-item>2 Thessalonians</paper-item>
-            <paper-item>1 Timothy</paper-item>
-            <paper-item>2 Timothy</paper-item>
-            <paper-item>Titus</paper-item>
-            <paper-item>Philemon</paper-item>
-            <paper-item>Hebrews</paper-item>
-            <paper-item>James</paper-item>
-            <paper-item>1 Peter</paper-item>
-            <paper-item>2 Peter</paper-item>
-            <paper-item>1 John</paper-item>
-            <paper-item>2 John</paper-item>
-            <paper-item>3 John</paper-item>
-            <paper-item>Jude</paper-item>
-            <paper-item>Revelation</paper-item>
-          </paper-menu>
-        </paper-dropdown-menu>
-      </div>
-      <div>
-        <paper-input id='chapter' label="Chapter" type="number" min="1" max="150" value="1">
-        </paper-input>
-      </div>
-      <div>
-        <paper-input id='verse' label="Verse" type="number" min="1" max="176" value="1">
-        </paper-input>
-      </div>
-      <div class="vertical layout around-justified">
-          <button onclick="submitChange()">Submit</button>
-      </div>
-    </div>
-    <div class="flex"></div>
+    <bible-console-selector 
+      id="bibleSel" 
+      selected-book="Genesis" 
+      selected-chapter="1" 
+      selected-verse="1">
+    </bible-console-selector>
   </template>
   <script>
   var socket = io();
-  function submitChange(){
-    var book = document.getElementById("book").value;
-    var chapter = document.getElementById("chapter").value;
-    var verse = document.getElementById("verse").value;
-    var req = {"book":book, "chapter":chapter,"verse":verse};
-    console.log("sent!\n" + JSON.stringify(req));
-    socket.emit('set viewer', JSON.stringify(req));
-    socket.on('change console', function(msg){
-      console.log('change console revieved: ' + msg)
-    });
-    return false;
-  };
 </script>
 </body>
 </html>
