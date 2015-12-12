@@ -22,7 +22,14 @@
     </bible-console-selector>
   </template>
   <script>
-  var socket = io();
-</script>
+    var socket = io();
+    socket.on('change console', function(msg){
+      selection = JSON.parse(msg);
+      console.log('change console recieved: ' + msg);
+      document.getElementById("bookSelect").value = selection.book;
+      document.getElementById("chapterSelect").value = selection.chapter;
+      document.getElementById("verseSelect").value = selection.verse;
+    });
+  </script>
 </body>
 </html>

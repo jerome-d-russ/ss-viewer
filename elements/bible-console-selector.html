@@ -4078,13 +4078,6 @@
         var req = {"book":book, "chapter":chapter,"verse":verse};
         console.log("sent!\n" + JSON.stringify(req));
         socket.emit('set viewer', JSON.stringify(req));
-        socket.on('change console', function(msg){
-          selection = JSON.parse(msg);
-          console.log('change console recieved: ' + msg);
-          document.getElementById("bookSelect").value = selection.book;
-          document.getElementById("chapterSelect").value = selection.chapter;
-          document.getElementById("verseSelect").value = selection.verse;
-        });
         return false;
       }
     });
