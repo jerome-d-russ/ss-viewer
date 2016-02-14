@@ -19,6 +19,9 @@
       },
       changeFontSize: function(e){
         this.textSize += this.changeAmount;
+        if(this.textSize < 1){
+          this.textSize = 1;
+        }
       }
     });
   </script>
