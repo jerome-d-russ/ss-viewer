@@ -26,10 +26,17 @@
   </div>
   <script>
     var socket = io();
+    var lastMsg;
     socket.on('change console', function(msg){
-      selection = JSON.parse(msg);
       console.log('change console recieved: ' + msg);
-      document.getElementById("selectedVerses").innerHTML += "<br>" + selection.book + " " + selection.chapter + " : " + selection.verse;
+      if (lastMsg == msg){
+        return;
+      }
+      lastMsg = msg;
+      selection = JSON.parse(msg);
+      document.getElementById("selectedVerses").innerHTML = "<br>" 
+                + selection.book + " " + selection.chapter + " : " + selection.verse
+                + document.getElementById("selectedVerses").innerHTML;
     });
   </script>
 </body>
