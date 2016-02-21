@@ -5,8 +5,13 @@ var https = require('https');
 var io = require('socket.io')(http);
 var bookMenu = require('./bookMenu');
 
+var lastMsg;
 io.on('connection', function(socket){
+  if(lastMsg){
+    socket.emit('change view', lastMsg);
+  }
   socket.on('set viewer', function(msg){
+    lastMsg = msg;
     console.log('set viewer received: ' + msg)
     io.emit('change view', msg);
   });
