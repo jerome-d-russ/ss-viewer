@@ -32,6 +32,10 @@
         selectedVerse: {
           Type: String,
           Notify: true
+        }, 
+        selectedAbbreviation: {
+          Type: String,
+          Notify: true
         } 
       },
       bookChanged: function(e){
@@ -45,6 +49,8 @@
         this.selectedBook = bk;
         localStorage.setItem('ss-viewer-book', JSON.stringify(bk));
         document.getElementById("bookSelect").value = bk;
+        this.set('selectedAbbreviation', this.books[this.selectedBook].abbreviation);
+        this.notifyPath('selectedAbbreviation');
         this.chapters = new Array();
         this.chapters = Object.keys(this.books[this.selectedBook].chapters);
       },

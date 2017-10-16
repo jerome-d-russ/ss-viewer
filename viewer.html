@@ -30,6 +30,11 @@
       value="{{selectedbook}}"
       on-iron-localstorage-load-empty="initializeDefaultBook"
     ></iron-localstorage>
+    
+    <iron-localstorage name="ss-viewer-abbreviation"
+      value="{{selectedabbreviation}}"
+      on-iron-localstorage-load-empty="initializeDefaultAbbreviation"
+    ></iron-localstorage>
 
     <iron-localstorage name="ss-viewer-chapter"
       value="{{selectedchapter}}"
@@ -50,7 +55,7 @@
       <paper-toolbar>
         <span class="flex">
           <template is="dom-if" if="{{selectedbook}}">
-            <bible-selector id="bibleSel" selected-book="{{selectedbook}}" selected-chapter="{{selectedchapter}}" selected-verse="{{selectedverse}}"></bible-selector>
+            <bible-selector id="bibleSel" selected-book="{{selectedbook}}" selected-abbreviation="{{selectedabbreviation}}" selected-chapter="{{selectedchapter}}" selected-verse="{{selectedverse}}"></bible-selector>
           </template>
         </span>
         <span class="layout horizontal center">
