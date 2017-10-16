@@ -71,7 +71,7 @@
       },
       setChapter: function(ch){
         this.selectedChapter = ch;
-        localStorage.setItem('ss-viewer-chapter', JSON.stringify(ch));
+        this.notifyPath('selectedChapter');
         document.getElementById("chapterSelect").value = ch;
         this.verses = new Array();
         var numberOfVerses = this.books[this.selectedBook].chapters[this.selectedChapter].length;
@@ -89,7 +89,7 @@
       },
       setVerse: function(v){
         this.selectedVerse = v;
-        localStorage.setItem('ss-viewer-verse', JSON.stringify(v));
+        this.notifyPath('selectedVerse');
         var req = {"type":"Verse", "book":this.selectedBook, "chapter":this.selectedChapter,"verse":this.selectedVerse};
         socket.emit('set console', JSON.stringify(req));
       },
