@@ -38,7 +38,7 @@ app.get('/passage', function (req, res) {
     return res.send('Error 400: Need Bible Edition, Book, Chapter.'); //, Start, and End.');
   } 
 
-  var url = "https://u6HsSO7H58krEHqMydGDyNx0VwIYsQOeZpYfZhnx:X@bibles.org/v2/chapters/"
+  var url = "https://u6HsSO7H58krEHqMydGDyNx0VwIYsQOeZpYfZhnx:X@bibles.org/v2/chapters/eng-"
              + req.query.edition + ":" 
              + req.query.book + "."
              + req.query.chapter + ".js"
