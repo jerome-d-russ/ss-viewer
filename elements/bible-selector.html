@@ -1,6 +1,11 @@
 <dom-module id="bible-selector">
 
   <template>
+    <select id="versionSelect" on-change="versionChanged" style="font-size:2em">
+      <template is="dom-repeat" items="{{versions}}" as="v">
+        <option value="{{v}}" selected$={{checkVersionSelection(v)}}>{{v}}</option>
+      </template>
+    </select>
     <select id="bookSelect" on-change="bookChanged" style="font-size:2em">
       <template is="dom-repeat" items="{{bookNames}}" as="bk">
         <option value="{{bk}}" selected$={{checkBookSelection(bk)}}>{{bk}}</option>
@@ -21,6 +26,10 @@
     Polymer({
       is: 'bible-selector',
       properties: {
+        selectedVersion: {
+          Type: String,
+          Notify: true
+        },
         selectedBook: {
           Type: String,
           Notify: true
@@ -38,6 +47,22 @@
           Notify: true
         } 
       },
+      versionChanged: function(e){
+        this.setVersion(document.getElementById("versionSelect").value);
+        r = {};
+        r.edition = this.selectedVersion;
+        r.book = this.books[this.selectedBook].abbreviation;
+        r.chapter = this.selectedChapter;
+        document.getElementById("ajax").params = r;
+        console.log(document.getElementById("ajax").params);
+        document.getElementById("ajax").generateRequest();
+        this.verseChanged();
+      },
+      setVersion: function(v){
+        document.getElementById("versionSelect").value = v;
+        this.set('selectedVersion', v);
+        this.notifyPath('selectedVersion');
+      },
       bookChanged: function(e){
         console.log('bookChanged()');
         this.setBook(document.getElementById("bookSelect").value);
@@ -46,8 +71,8 @@
         this.chapterChanged();
       },
       setBook: function(bk){
-        this.selectedBook = bk;
-        localStorage.setItem('ss-viewer-book', JSON.stringify(bk));
+        this.set('selectedBook', bk);
+        this.notifyPath('selectedBook');
         document.getElementById("bookSelect").value = bk;
         this.set('selectedAbbreviation', this.books[this.selectedBook].abbreviation);
         this.notifyPath('selectedAbbreviation');
@@ -61,7 +86,7 @@
         document.getElementById("verseSelect").value = '1';
         this.selectedVerse = document.getElementById("verseSelect").value;
         r = {};
-        r.edition = "eng-NASB";
+        r.edition = this.selectedVersion;
         r.book = this.books[this.selectedBook].abbreviation;
         r.chapter = this.selectedChapter;
         document.getElementById("ajax").params = r;
@@ -4067,9 +4092,17 @@
             }
           }
         };
+        this.versions = ["AMP", "CEV", "CEVD", "CEVUK", "ESV", "GNBDC", "GNTD", "KJV", "KJVA", "MSG", "NASB"];
         this.bookNames = Object.keys(this.books);
         this.chapters = Object.keys(this.books[this.selectedBook].chapters);
         this.verses = this.getVerses(this.books[this.selectedBook].chapters[this.selectedChapter].length);
+      },
+      checkVersionSelection: function(version) {
+        if(version == this.selectedVersion){
+          return true;
+        } else {
+          return false;
+        }
       },
       checkBookSelection: function(book) {
         if(book == this.selectedBook){

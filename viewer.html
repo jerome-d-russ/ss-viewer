@@ -25,7 +25,12 @@
       value="{{textsize}}"
       on-iron-localstorage-load-empty="initializeTextsize"
     ></iron-localstorage>
-
+    
+    <iron-localstorage name="ss-viewer-version"
+      value="{{selectedversion}}"
+      on-iron-localstorage-load-empty="initializeDefaultVersion"
+    ></iron-localstorage>
+        
     <iron-localstorage name="ss-viewer-book"
       value="{{selectedbook}}"
       on-iron-localstorage-load-empty="initializeDefaultBook"
@@ -55,7 +60,7 @@
       <paper-toolbar>
         <span class="flex">
           <template is="dom-if" if="{{selectedbook}}">
-            <bible-selector id="bibleSel" selected-book="{{selectedbook}}" selected-abbreviation="{{selectedabbreviation}}" selected-chapter="{{selectedchapter}}" selected-verse="{{selectedverse}}"></bible-selector>
+            <bible-selector id="bibleSel" selected-version="{{selectedversion}}" selected-book="{{selectedbook}}" selected-abbreviation="{{selectedabbreviation}}" selected-chapter="{{selectedchapter}}" selected-verse="{{selectedverse}}"></bible-selector>
           </template>
         </span>
         <span class="layout horizontal center">
@@ -86,9 +91,10 @@
           bSel.setBook(selected.book);
           bSel.setChapter(selected.chapter);
           r = {};
-          r.edition = "eng-NASB";
-          r.book = this.selectedabbreviation;
-          r.chapter = selected.chapter;
+          r.edition = bSel.selectedversion;
+          r.book = bSel.selectedabbreviation;
+          r.chapter = bSel.selectedchapter;
+          console.log(r);
           document.getElementById("ajax").params = r;
           document.getElementById("ajax").generateRequest();
         }else{
@@ -106,10 +112,13 @@
       }
       app.getParams = function(){
         r = {};
-        r.edition = "eng-NASB";
+        r.edition = this.selectedversion;
         r.book = this.selectedabbreviation;
         r.chapter = this.selectedchapter;
         return r;
+      }
+      app.initializeDefaultVersion = function(){
+        this.selectedversion = "NASB";
       }
       app.initializeDefaultBook = function(){
         this.selectedbook = "John";
