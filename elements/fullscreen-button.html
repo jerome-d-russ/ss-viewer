@@ -1,48 +1,45 @@
 <dom-module id="fullscreen-button">
-    
-      <template>
-        <paper-icon-button icon="icons:fullscreen" style$="height:{{btnHeight}}" on-click="changeFullscreen"></paper-icon-button>
-      </template>
-    
-      <script>
-        Polymer({
-          is: 'fullscreen-button',
-          properties: {
-            btnHeight: String,
-            isFullscreen: {
-              type: Boolean,
-              notify: true
-            }
-          },
-          changeFullscreen: function(e){
-            document.fullscreenElement = document.fullscreenElement
-                                        || document.webkitFullscreenElement
-                                        || document.mozFullscreenElement
-                                        || document.msFullscreenElement;
-            document.exitFullscreen = document.exitFullscreen
-                                        || document.webkitExitFullscreen
-                                        || document.mozExitFullscreen
-                                        || document.msExitFullscreen;
-            document.getElementById("bodyId").requestFullscreen = document.getElementById("bodyId").requestFullscreen
-                                                                    || document.getElementById("bodyId").webkitRequestFullscreen
-                                                                    || document.getElementById("bodyId").mozRequestFullscreen
-                                                                    || document.getElementById("bodyId").msRequestFullscreen;
-            document.exitFullscreen = document.exitFullscreen
-                                                                    || document.webkitExitFullscreen
-                                                                    || document.mozCancelFullscreen
-                                                                    || document.msExitFullscreen;
-            
-            console.log(document.fullscreenElement);
-            if (!document.fullscreenElement) {
-                document.getElementById("bodyId").requestFullscreen();
-            } else {
-              if (document.exitFullscreen) {
-                document.exitFullscreen();
-                document.fullscreenElement = null;
-              }
-            }
+  <template>
+    <paper-icon-button icon="icons:fullscreen" style$="height:{{btnHeight}}" on-click="changeFullscreen"></paper-icon-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'fullscreen-button',
+      properties: {
+        btnHeight: String,
+        isFullscreen: {
+          type: Boolean,
+          notify: true
+        }
+      },
+      changeFullscreen: function(e){
+        document.fullscreenElement = document.fullscreenElement
+                                    || document.webkitFullscreenElement
+                                    || document.mozFullscreenElement
+                                    || document.msFullscreenElement;
+        document.exitFullscreen = document.exitFullscreen
+                                    || document.webkitExitFullscreen
+                                    || document.mozExitFullscreen
+                                    || document.msExitFullscreen;
+        document.getElementById("bodyId").requestFullscreen = document.getElementById("bodyId").requestFullscreen
+                                                                || document.getElementById("bodyId").webkitRequestFullscreen
+                                                                || document.getElementById("bodyId").mozRequestFullscreen
+                                                                || document.getElementById("bodyId").msRequestFullscreen;
+        document.exitFullscreen = document.exitFullscreen
+                                                                || document.webkitExitFullscreen
+                                                                || document.mozCancelFullscreen
+                                                                || document.msExitFullscreen;
+        
+        console.log(document.fullscreenElement);
+        if (!document.fullscreenElement) {
+            document.getElementById("bodyId").requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+            document.fullscreenElement = null;
           }
-        });
-      </script>
-    
-    </dom-module>
+        }
+      }
+    });
+  </script>
+</dom-module>

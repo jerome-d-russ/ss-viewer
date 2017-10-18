@@ -10,47 +10,44 @@
       debounce-duration="300">
     </iron-ajax>
   </template>
-
-...
-<script>
-  Polymer({
-    is: "similar-tracks",
-    properties : {
-      selectedBook: {
-        Type: String,
-        Notify: true
+  <script>
+    Polymer({
+      is: "similar-tracks",
+      properties : {
+        selectedBook: {
+          Type: String,
+          Notify: true
+        },
+        selectedChapter: {
+          Type: String,
+          Notify: true
+        }, 
+        selectedVerse: {
+          Type: String,
+          Notify: true
+        },
+        track : {
+            type : String
+        },
+        artist:{
+          type: String //not sure if this an object,
+          value: null
+        },
+        getParams:{
+          type:Object,
+          computed:'_getParams(artist, track)'
+        }
       },
-      selectedChapter: {
-        Type: String,
-        Notify: true
-      }, 
-      selectedVerse: {
-        Type: String,
-        Notify: true
-      },
-      track : {
-          type : String
-      },
-     artist:{
-         type: String //not sure if this an object,
-         value:null
-     },
-     getParams:{
-           type:Object,
-           computed:'_getParams(artist, track)'
-    }
-
-    },
-    attached: function() {
-        console.log(this.localName + '#' + this.id + ' was attached');
+      attached: function() {
         this.$$('iron-ajax').params = {
           artist : this.artist,
           track : this.track
         };
         this.$$('iron-ajax').generateRequest();
-    },
-    _getParams:function(artist, track){
-          return artist!=null && track!=null; 
-    }
-  });
-</script>
+      },
+      _getParams:function(artist, track){
+            return artist!=null && track!=null; 
+      }
+    });
+  </script>
+</dom-module>

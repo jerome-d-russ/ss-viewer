@@ -54,7 +54,6 @@
         r.book = this.books[this.selectedBook].abbreviation;
         r.chapter = this.selectedChapter;
         document.getElementById("ajax").params = r;
-        console.log(document.getElementById("ajax").params);
         document.getElementById("ajax").generateRequest();
         this.verseChanged();
       },
@@ -64,7 +63,6 @@
         this.notifyPath('selectedVersion');
       },
       bookChanged: function(e){
-        console.log('bookChanged()');
         this.setBook(document.getElementById("bookSelect").value);
         this.selectedChapter = '1';
         document.getElementById("chapterSelect").value = '1';
@@ -80,7 +78,6 @@
         this.chapters = Object.keys(this.books[this.selectedBook].chapters);
       },
       chapterChanged: function(e){
-        console.log('chapterChanged()');
         this.setChapter(document.getElementById("chapterSelect").value);
         this.selectedVerse = '1';
         document.getElementById("verseSelect").value = '1';
@@ -90,7 +87,6 @@
         r.book = this.books[this.selectedBook].abbreviation;
         r.chapter = this.selectedChapter;
         document.getElementById("ajax").params = r;
-        console.log(document.getElementById("ajax").params);
         document.getElementById("ajax").generateRequest();
         this.verseChanged();
       },
@@ -103,7 +99,6 @@
         this.verses = this.getVerses(numberOfVerses);
       },
       verseChanged: function(e){
-        console.log('verseChanged()');
         this.setVerse(document.getElementById("verseSelect").value);
         var b = this.books[this.selectedBook].abbreviation;
         var ele = b + "." + this.selectedChapter + "." + this.selectedVerse;
@@ -126,7 +121,6 @@
         return arrayOfVerses;
       },
       ready: function() {
-        console.log(this.selectedBook);
         this.books = {
           "Genesis": {
             "order": "1",
@@ -4127,7 +4121,4 @@
       }
     });
   </script>
-
 </dom-module>
-
-

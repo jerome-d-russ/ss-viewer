@@ -83,7 +83,6 @@
       var app = document.getElementById("app");
       var socket = io();
       socket.on('change view', function(msg){
-        console.log("Received: " + msg );
         var selected = JSON.parse(msg);
         var bSel = document.getElementById("bibleSel");
         document.getElementById("verseSelect").value = selected.verse;
@@ -95,7 +94,6 @@
           r.edition = bSel.selectedversion;
           r.book = bSel.selectedabbreviation;
           r.chapter = bSel.selectedchapter;
-          console.log(r);
           document.getElementById("ajax").params = r;
           document.getElementById("ajax").generateRequest();
         }else{
@@ -103,8 +101,6 @@
         }
       });
       app.handleResponse = function(){
-        console.log('handle response');
-        console.log( app.ajaxResponse.osis_end);
         document.getElementById("mainContent").innerHTML = app.ajaxResponse.text;
         var bs = document.getElementById("bibleSel");
         if(bs){
