@@ -7,6 +7,8 @@
   </template>
 
   <script>
+    var body = document.getElementsByTagName("body")[0];
+    var html = document.getElementsByTagName("html")[0];
     Polymer({
       is: 'contrast-button',
       properties: {
@@ -17,26 +19,32 @@
         }
       },
       changeContrast: function(e){
-        main = document.getElementById("bodyId");
         if(this.contrastStyle == 'light'){
-          main.style.backgroundColor = 'black';
-          main.style.color = 'white';
+          body.style.backgroundColor = 'black';
+          body.style.color = 'white';
+          html.style.backgroundColor = 'black';
+          html.style.color = 'white';
           this.contrastStyle = 'dark';
         } else {
-          main.style.backgroundColor = 'white';
-          main.style.color = 'black';
+          body.style.backgroundColor = 'white';
+          body.style.color = 'black';
+          html.style.backgroundColor = 'white';
+          html.style.color = 'black';
           this.contrastStyle = 'light';
         }
       },
       ready: function(){
-        main = document.getElementById("bodyId");
         if(this.contrastStyle == 'light'){
-          main.style.backgroundColor = 'white';
-          main.style.color = 'black';
+          body.style.backgroundColor = 'white';
+          body.style.color = 'black';
+          html.style.backgroundColor = 'white';
+          html.style.color = 'black';
         } else {
-          main.style.backgroundColor = 'black';
-          main.style.color = 'white';
-        }        
+          body.style.backgroundColor = 'black';
+          body.style.color = 'white';
+          html.style.backgroundColor = 'black';
+          html.style.color = 'white';
+        }       
       }
     });
   </script>
