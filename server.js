@@ -48,16 +48,20 @@ app.get('/passage', function (req, res) {
   //https://bibles.org/v2/{{edition}}/passages.js?q[]={{book}}+{{chapter}}%3A{{start}}-{{stop}}
   https.get(url, function(res2) {
     console.log("Sent Passage to Bibles.org: " + res2.statusCode);
-    
-    var body = '';
-    res2.on('data', function(chunk) {
-      body += chunk;
-    });
-    res2.on('end', function() {
-      var passage = JSON.parse(body).response.chapters[0];
-      console.log("Passage Sent");
-      res.json(passage);
-    });
+
+    if(res2.statusCode == 200){
+      var body = '';
+      res2.on('data', function(chunk) {
+        body += chunk;
+      });
+      res2.on('end', function() {
+        var passage = JSON.parse(body).response.chapters[0];
+        console.log("Passage Sent");
+        res.json(passage);
+      });
+    } else {
+      res.json("There was an error calling the Bible API: " + res2.statusCode);
+    }
   }).on('error', function(e) {
     console.log("Got error: " + e.message);
   });
