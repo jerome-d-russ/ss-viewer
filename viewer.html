@@ -101,10 +101,14 @@
         }
       });
       app.handleResponse = function(){
-        document.getElementById("mainContent").innerHTML = app.ajaxResponse.text;
-        var bs = document.getElementById("bibleSel");
-        if(bs){
-          bs.verseChanged();
+        if(app.ajaxResponse && app.ajaxResponse.text){
+          document.getElementById("mainContent").innerHTML = app.ajaxResponse.text;
+          var bs = document.getElementById("bibleSel");
+          if(bs){
+            bs.verseChanged();
+          }
+        } else {
+          document.getElementById("ajax").generateRequest();
         }
       }
       app.getParams = function(){
