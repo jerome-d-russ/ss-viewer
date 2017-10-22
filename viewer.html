@@ -91,9 +91,9 @@
           bSel.setBook(selected.book);
           bSel.setChapter(selected.chapter);
           r = {};
-          r.edition = bSel.selectedversion;
-          r.book = bSel.selectedabbreviation;
-          r.chapter = bSel.selectedchapter;
+          r.edition = bSel.selectedVersion;
+          r.book = bSel.selectedAbbreviation;
+          r.chapter = bSel.selectedChapter;
           document.getElementById("ajax").params = r;
           document.getElementById("ajax").generateRequest();
         }else{
